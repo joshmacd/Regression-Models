@@ -43,8 +43,9 @@ Possible Future Implementations:
 
  - Model comparison and validation
 
-## Repository structure
-'''text
+## Repository Structure
+
+```text
 ├── data/
 │   ├── raw/              # Original datasets
 │   └── processed/        # Cleaned and transformed datasets
@@ -54,10 +55,11 @@ Possible Future Implementations:
 │   └── transformations/  # Data preparation queries
 ├── src/                  # Reusable Python code
 ├── tests/                # Automated tests
-├── models/               # Saved model artifacts
+├── models/               # Saved model artefacts
 ├── requirements.txt
 └── pyproject.toml
-'''
+```
+
 ## Technologies
 
 – Python
