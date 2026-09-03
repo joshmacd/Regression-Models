@@ -60,3 +60,30 @@ print(df.describe().T)
 
 print("\nRows containing missing values:")
 print(df[df.isna().any(axis=1)])
+
+#Running the following bash code produces a summary of the data set:
+#python Scripts/Script1-AutoMPG/Auto-MPG-CleanUp.py
+
+#We now create the cleand data frame.
+#Start by reamoving duplicate rows and rows with missing values.
+clean_df = (
+    df.drop_duplicates()
+    .dropna()
+    .reset_index(drop=True)
+)
+
+#Check that the new data frame exists and is correctly formatted
+PROCESSED_PATH.parent.mkdir(
+    parents=True,
+    exist_ok=True,
+)
+
+#Store the cleaned data as a new CSV file.
+clean_df.to_csv(
+    PROCESSED_PATH,
+    index=False,
+)
+#Print the following information to confirm that the cleaned data set has been created
+print(f"Cleaned data saved to: {PROCESSED_PATH}")
+print(f"Original rows: {len(df)}")
+print(f"Cleaned rows: {len(clean_df)}")
