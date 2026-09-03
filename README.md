@@ -44,7 +44,7 @@ Possible Future Implementations:
  - Model comparison and validation
 
 ## Repository structure
-text'''
+'''text
 ├── data/
 │   ├── raw/              # Original datasets
 │   └── processed/        # Cleaned and transformed datasets
