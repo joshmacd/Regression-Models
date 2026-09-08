@@ -5,42 +5,29 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-#store the path of the cleaned data as Proj_Root
-PROJ_ROOT = Path("Data/Processed-Data/AutoMPG/auto-mpg-cleaned.csv")
-
-#We now choose the an appropriate path to store the cleaned data and figures generated from the analysis
-DATA_PATH = (
-    PROJECT_ROOT
-    / "Data"
-    / "Processed-Data"
-    / "AutoMPG"
-    / "auto-mpg-cleaned.csv"
+DATA_PATH = Path(
+    "Data/Processed-Data/AutoMPG/auto-mpg-cleaned.csv"
 )
 
-FIGURES_PATH = (
-    PROJECT_ROOT
-    / "Outputs"
-    / "Figures"
-    / "AutoMPG"
+FIGURES_PATH = Path(
+    "Outputs/Figures/AutoMPG"
 )
+if not DATA_PATH.exists():
+    raise FileNotFoundError(
+        f"Cleaned data file not found: {DATA_PATH}"
+    )
 
-#Now we read the cleaned data from script 1 into the panda frame
 df = pd.read_csv(DATA_PATH)
 
-FIGURES_PATH.mkdir(parents=True, exist_ok=True)
+FIGURES_PATH.mkdir(
+    parents=True,
+    exist_ok=True,
+)
 
 #we now preview the data and print some common statistics about the data set
 #Summary statistics prints the count, mean, standard deviation, minimum, maximum and quartile ranges
 print("\nSummary statistics:")
 print(df.describe().T)
-
-#This prints the correlation between numerical features and the target varible (mpg) 
-print("\nCorrelation with MPG:")
-print(
-    df.select_dtypes(include="number")
-    .corr()["mpg"]
-    .sort_values(ascending=False)
-)
 
 #This prints the average MPG across different cylinder sizes
 print("\nAverage MPG by cylinder count:")
@@ -60,3 +47,74 @@ print(
 
 # We now generate some figures to visulalise the data and relationships between the variables.
 #The figures are saved in the Outputs/Figures/AutoMPG directory.
+
+#We select only the numerical columns for the correlation analysis
+numeric_df = df.select_dtypes(include="number")
+correlation_matrix = numeric_df.corr()
+
+#Display the correlation matrix to display 
+print("\nCorrelation with MPG:")
+print(correlation_matrix["mpg"].sort_values(ascending=False)) #sets the highest correlation with mpg first
+
+
+#We set a theme for the plot and keep the style consistent
+sns.set_theme(style="whitegrid")
+
+#We plot the distribution of MPG using a histogram
+plt.figure(figsize=(8, 5))
+sns.histplot(data=df, x="mpg", bins=20, kde=True, color="skyblue",)
+
+#Set up the title and labels for the plot 
+plt.title("Distribution of Fuel Efficiency")
+plt.xlabel("Miles per Gallon")
+plt.ylabel("Number of Cars")
+plt.tight_layout() #Removes clipping of labels
+
+#Save the figure to a figure path 
+plt.savefig(FIGURES_PATH / "mpg_distribution.png", dpi=300,)
+plt.close()
+
+
+# We now plot the MPG against vehicle weight using a linear regression 
+plt.figure(figsize=(8, 5))
+sns.regplot(data=df, x="weight", y="mpg", scatter_kws={"alpha": 0.6}, line_kws={"color": "red"},)
+
+#Set the titles and labels for the plot
+plt.title("Fuel Efficiency Against Vehicle Weight")
+plt.xlabel("Vehicle Weight")
+plt.ylabel("Miles per Gallon")
+plt.tight_layout()
+
+#Saving the figure to the figures path
+plt.savefig(FIGURES_PATH / "mpg_vs_weight.png", dpi=300,)
+plt.close()
+
+
+# We again use regplot to visualise the relationship between MPG and horsepower using linear regression
+plt.figure(figsize=(8, 5))
+sns.regplot(data=df, x="horsepower", y="mpg", scatter_kws={"alpha": 0.6}, line_kws={"color": "red"},)
+
+#Set the titles and labels for the plot
+plt.title("Fuel Efficiency Against Horsepower")
+plt.xlabel("Horsepower")
+plt.ylabel("Miles per Gallon")
+plt.tight_layout()
+
+#Saving the figure in the appropriate root
+plt.savefig(FIGURES_PATH / "mpg_vs_horsepower.png", dpi=300,)
+plt.close()
+
+
+#display the correlation heatmap 
+plt.figure(figsize=(10, 7))
+
+sns.heatmap( correlation_matrix, annot=True, fmt=".2f", cmap="coolwarm", center=0,)
+
+#setting the title for the heatmap and saving the figure to the appropriate path
+plt.title("Correlation Between Numerical Variables")
+plt.tight_layout()
+plt.savefig(FIGURES_PATH / "correlation_heatmap.png", dpi=300,)
+plt.close()
+
+#Print the following text to confirm that the figures have been generated and saved in the appropriate location
+print(f"\nFigures saved in: {FIGURES_PATH.resolve()}")
