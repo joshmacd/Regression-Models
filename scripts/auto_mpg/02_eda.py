@@ -5,13 +5,24 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-DATA_PATH = Path(
-    "Data/Processed-Data/AutoMPG/auto-mpg-cleaned.csv"
+#We set the project root - parent 2 identifies the project root directory
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+DATA_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "processed"
+    / "auto_mpg"
+    / "auto_mpg_cleaned.csv"
 )
 
-FIGURES_PATH = Path(
-    "Outputs/Figures/AutoMPG"
+FIGURES_PATH = (
+    PROJECT_ROOT
+    / "outputs"
+    / "figures"
+    / "auto_mpg"
 )
+
 if not DATA_PATH.exists():
     raise FileNotFoundError(
         f"Cleaned data file not found: {DATA_PATH}"
@@ -19,10 +30,8 @@ if not DATA_PATH.exists():
 
 df = pd.read_csv(DATA_PATH)
 
-FIGURES_PATH.mkdir(
-    parents=True,
-    exist_ok=True,
-)
+#Ensure that the figures path exists and if not create it, (parents=True - ensures that missing parent directories are created)
+FIGURES_PATH.mkdir(parents=True, exist_ok=True,)
 
 #we now preview the data and print some common statistics about the data set
 #Summary statistics prints the count, mean, standard deviation, minimum, maximum and quartile ranges

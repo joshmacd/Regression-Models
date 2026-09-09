@@ -4,8 +4,25 @@ from pathlib import Path
 import pandas as pd
 
 #Store the paths of the raw and processed data as varibles
-RAW_PATH = Path("Data/Raw-Data/AutoMPG/auto-mpg.data")
-PROCESSED_PATH = Path("Data/Processed-Data/AutoMPG/auto-mpg-cleaned.csv")
+#The project root is the parent directory of the current files grandparent directory. 
+#This has been added to ensure code is portable and can be run on any machine without having to change the file paths.
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+RAW_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "raw"
+    / "auto_mpg"
+    / "auto-mpg.data"
+)
+
+PROCESSED_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "processed"
+    / "auto_mpg"
+    / "auto_mpg_cleaned.csv"
+)
 
 #This is used to confirm that Python can find the raw file and raise an error if it isnt found
 if not RAW_PATH.exists():
