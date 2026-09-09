@@ -86,7 +86,7 @@ plt.close()
 
 # We now plot the MPG against vehicle weight using a linear regression 
 plt.figure(figsize=(8, 5))
-sns.regplot(data=df, x="weight", y="mpg", scatter_kws={"alpha": 0.6}, line_kws={"color": "red"},)
+sns.regplot(data=df, x="weight", y="mpg",seed =42, scatter_kws={"alpha": 0.6}, line_kws={"color": "red"},)
 
 #Set the titles and labels for the plot
 plt.title("Fuel Efficiency Against Vehicle Weight")
@@ -101,7 +101,7 @@ plt.close()
 
 # We again use regplot to visualise the relationship between MPG and horsepower using linear regression
 plt.figure(figsize=(8, 5))
-sns.regplot(data=df, x="horsepower", y="mpg", scatter_kws={"alpha": 0.6}, line_kws={"color": "red"},)
+sns.regplot(data=df, x="horsepower", y="mpg",seed =42, scatter_kws={"alpha": 0.6}, line_kws={"color": "red"},)
 
 #Set the titles and labels for the plot
 plt.title("Fuel Efficiency Against Horsepower")
