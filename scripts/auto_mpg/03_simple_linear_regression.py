@@ -150,9 +150,34 @@ ax.legend()
 
 #Save the figure in the correcct location after generating 
 fig.tight_layout()
-fig.savefig(
-    FIGURES_PATH / "simple_linear_regression_actual_vs_predicted.png",
-    dpi=180,
-)
+fig.savefig(FIGURES_PATH / "simple_linear_regression_actual_vs_predicted.png", dpi=180)
+plt.show()
+plt.close(fig)
+
+#---------------------------------------
+#New Implementation of plotting residuals(actual - predicted), to see how accurate our prediction is.
+#Above zero: the model underestimated MPG(y_test> y_pred).
+#Below zero: the model overestimated MPG(t_test < y_pred).
+#On zero: the prediction was correct(y_test = y_pred).
+#---------------------------------------
+
+#We now alculate the difference between actual and predicted MPG.
+residuals = y_test - y_pred
+
+#Then we plpt the residuals against predicted MPG.
+fig, ax = plt.subplots(figsize=(7, 6))
+ax.scatter(y_pred, residuals, alpha=0.7)
+
+#We include a reference line where the prediction error is zero.
+ax.axhline(y=0, color="red", linestyle="--", label="Zero residual(y_test = y_pred)")
+
+#Set up the axis labes and a legend for the figure
+ax.set(xlabel="Predicted MPG", ylabel="Residual (y_test - y_pred)", title="Weight Model: Residuals vs Predicted MPG")
+ax.legend()
+
+#Sav the plot using the figures folder.
+fig.tight_layout()
+fig.savefig(FIGURES_PATH / "simple_linear_regression_residuals_vs_predicted.png", dpi=180)
+
 plt.show()
 plt.close(fig)
