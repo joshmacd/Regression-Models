@@ -27,9 +27,10 @@ This repository documents my progress as I learn to:
 - [x] Created a Python data-cleaning workflow.
 - [x] Performed initial exploratory data analysis.
 - [x] Generated and saved data visualisations.
-- [ ] Build and evaluate a simple linear regression model.
+- [x] Build and evaluate a simple linear regression model.
+- [x] Build a multiple linear regression model.
+- [ ] Complete a detailed LaTeX write up.
 - [ ] Add SQL-based analysis.
-- [ ] Build a multiple linear regression model.
 - [ ] Add residual diagnostics and model validation.
 - [ ] Compare regularised and nonlinear regression models.
 
@@ -57,20 +58,23 @@ More information is available in the [Auto MPG dataset documentation](data/raw/a
 Regression-Models/
 ├── data/
 │   ├── raw/
-│   │   └── auto_mpg/              # Original Auto MPG files
+│   │   └── auto_mpg/              # Original dataset and documentation
 │   └── processed/
-│       └── auto_mpg/              # Cleaned Auto MPG dataset
+│       └── auto_mpg/              # Cleaned dataset
 ├── scripts/
 │   └── auto_mpg/
-│       ├── 01_clean_data.py       # Data inspection and cleaning
-│       └── 02_eda.py              # Exploratory analysis and figures
+│       ├── 01_clean_data.py                  # Data inspection and cleaning
+│       ├── 02_eda.py                         # Exploratory analysis and figures
+│       ├── 03_simple_linear_regression.py    # Weight-only model, baseline comparison and residuals
+│       └── 04_multiple_linear_regression.py  # Multiple regression, cross-validation and model comparison
 ├── outputs/
 │   └── figures/
-│       └── auto_mpg/              # Generated Auto MPG figures
+│       └── auto_mpg/              # Exploratory and regression figures
 ├── .gitignore
 ├── requirements.txt
 ├── README.md
 └── LICENSE
+```
 
 
 ## Installation
