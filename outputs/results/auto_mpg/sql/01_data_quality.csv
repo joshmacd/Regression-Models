@@ -1,0 +1,3 @@
+dataset,total_cars,cars_with_horsepower,missing_horsepower
+Raw,398,392,6
+Cleaned,392,392,0
